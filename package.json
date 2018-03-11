@@ -1,0 +1,19 @@
+{
+  "name": "node-mailer-lambda",
+  "version": "1.0.0",
+  "description": "node-mailer inside of aws lambda",
+  "main": "mailer.js",
+  "scripts": {
+    "test": "echo no tests, yet",
+    "pretest": "npm run lint",
+    "lint": "echo no linting, yet"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-mailer": "^0.1.1"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.207.0"
+  }
+}
