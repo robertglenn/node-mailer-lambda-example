@@ -13,6 +13,16 @@ exports.PASSWORD = [password associated with USER_NAME];
 * build docker image, passing in AWS credentials as ARG values: `docker build -t lambda-mailer-update --build-arg AWS_ACCESS_KEY_ID=<your access key> --build-arg AWS_SECRET_ACCESS_KEY=<your secret key> --build-arg AWS_REGION=<lambda region> --build-arg CONFIG_FILE_NAME=<config file name> --build-arg PRIVATE_BUCKET_NAME=<bucket name> .`
 * run docker image: `docker run -e AWS_ACCESS_KEY_ID=<your access key> -e AWS_SECRET_ACCESS_KEY=<your secret key> -e AWS_REGION=<lambda region> -e CONFIG_FILE_NAME=<config file name> -e FUNCTION_NAME=<lambda function name> -e ALIAS_NAME=<lambda alias name> lambda-mailer-update`
 
+### Usage:
+Send a POST request to the API gateway endpoint with the following (optional) JSON structure as a payload:
+```
+{
+  subject: 'subject line contents',
+  text: 'text contents',
+  html: '<p>html contents</p>'
+}
+```
+
 # Why Mail?
 It's a common problem (with many solutions, for sure), which makes it a relatable concept. Seems like hiding the logic in a lambda would be a cheap/secure way to trigger a simple customizable notification email. The implementation I'm using also requires some sensitive configuration, so it's a good example of how to protect such information.
 
