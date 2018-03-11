@@ -4,7 +4,8 @@ Provide a full end-to-end example of managing the continuous delivery of a more-
 # How To:
 ### Prerequisites:
 First you'll need to create some stuff on AWS: S3 Bucket (with e.g. SSE-S3 encryption), S3 Bucket Permissions, Lambda Function, Lambda Alias, API Gateway. You'll need to upload a config file to the S3 bucket with the following:
-```exports.HOST_NAME = [your domain's smtp server hostname];
+```
+exports.HOST_NAME = [your domain's smtp server hostname];
 exports.USER_NAME = [email address to send/receive from];
 exports.PASSWORD = [password associated with USER_NAME];
 ```
