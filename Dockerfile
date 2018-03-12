@@ -29,7 +29,7 @@ RUN AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCES
 RUN rm -Rf node_modules && npm install --production
 
 ## zip the function code contents
-RUN zip -r function.zip ./config.js ./mailer.js ./package.json ./node_modules/
+RUN zip -r function.zip ./config.js ./mailer.js ./node_modules/
 
 ## we do need the aws sdk to update lambda :/
 RUN npm install
