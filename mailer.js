@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { HOST_NAME, USER_NAME, PASSWORD } = require('./config');
+const { HOST_NAME, EMAIL, PASSWORD } = require('./config');
 
 const smtpConfig = {
     host: HOST_NAME,
@@ -7,7 +7,7 @@ const smtpConfig = {
     secure: false,
     requireTLS: true,
     auth: {
-        user: USER_NAME,
+        user: EMAIL,
         pass: PASSWORD
     }
 };
@@ -15,8 +15,8 @@ const smtpConfig = {
 const transporter = nodemailer.createTransport(smtpConfig);
  
 const defaultMail = {
-  from: USER_NAME,
-  to: USER_NAME,
+  from: EMAIL,
+  to: EMAIL,
   subject: 'General Comment',
   text: 'n/a',
   html: '<p>n/a</p>'
@@ -32,13 +32,13 @@ const sendEmail = (mailOptions) => {
 	});
 };
 
-const sendFeedbackEmailToCorrectAddress = (rawData) => {
+const sendFeedbackEmailToCorrectAddress = (event, context) => {
 	const data = {
 		from: defaultMail.from,
 		to: defaultMail.to,
-		subject: rawData.subject || defaultMail.subject,
-		text: rawData.text || defaultMail.text,
-		html: rawData.html || defaultMail.html
+		subject: event.body.subject || defaultMail.subject,
+		text: event.body.text || defaultMail.text,
+		html: event.body.html || defaultMail.html
 	};
 
 	sendEmail(data);

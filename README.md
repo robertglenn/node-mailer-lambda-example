@@ -6,12 +6,12 @@ Provide a full end-to-end example of managing the continuous delivery of a more-
 First you'll need to create some stuff on AWS: S3 Bucket (with e.g. SSE-S3 encryption), S3 Bucket Permissions, Lambda Function, Lambda Alias, API Gateway. You'll need to upload a config file to the S3 bucket with the following:
 ```
 exports.HOST_NAME = [your domain's smtp server hostname];
-exports.USER_NAME = [email address to send/receive from];
+exports.EMAIL = [email address to send/receive from];
 exports.PASSWORD = [password associated with USER_NAME];
 ```
 ### Update:
 * build docker image, passing in AWS credentials as ARG values: `docker build -t lambda-mailer-update --build-arg AWS_ACCESS_KEY_ID=<your access key> --build-arg AWS_SECRET_ACCESS_KEY=<your secret key> --build-arg AWS_REGION=<lambda region> --build-arg CONFIG_FILE_NAME=<config file name> --build-arg PRIVATE_BUCKET_NAME=<bucket name> .`
-* run docker image: `docker run -e AWS_ACCESS_KEY_ID=<your access key> -e AWS_SECRET_ACCESS_KEY=<your secret key> -e AWS_REGION=<lambda region> -e CONFIG_FILE_NAME=<config file name> -e FUNCTION_NAME=<lambda function name> -e ALIAS_NAME=<lambda alias name> lambda-mailer-update`
+* run docker image: `docker run -e FUNCTION_NAME=<lambda function name> -e ALIAS_NAME=<lambda alias name> lambda-mailer-update`
 
 ### Usage:
 Send a POST request to the API gateway endpoint with the following (optional) JSON structure as a payload:
@@ -33,4 +33,4 @@ It's a common problem (with many solutions, for sure), which makes it a relatabl
 * Lambda alias for abstracting version
 * API Gateway for remotely and securely triggering Lambda
 * Lambda SDK for deployment of function code
-* Docker to pull it all together: lint/test logic, securely retrieve config from S3, zip files for upload to Lambda, update alias, clean up
+* Docker to pull it all together: lint/test logic, securely retrieve config from S3, zip files for upload to Lambda, update alias

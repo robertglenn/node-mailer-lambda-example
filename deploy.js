@@ -27,6 +27,7 @@ const updateZipFile = () => {
         console.log(err, err.stack);
         reject(err);
       } else {
+        console.log('Zip file has been added to the update function config');
         updateFunctionParams.ZipFile = data;
         resolve();
       }
@@ -41,6 +42,7 @@ const updateFunctionCode = () => {
         console.log(err, err.stack);
         reject(err);
       } else {
+        console.log('Function Code has been updated');
         updateAliasParams.FunctionVersion = data.Version;
         resolve();
       }
@@ -55,37 +57,11 @@ const updateAlias = () => {
         console.log(err, err.stack);
         reject(err);
       } else {
+        console.log('Alias has been updated');
         resolve();
       }
     });
   });
 };
 
-const cleanUpConfig = () => {
-  return new Promise((resolve, reject) => {
-    fs.unlink(CONFIG_FILE_PATH, (err, data) => {
-      if (err) {
-        console.log(err, err.stack);
-        reject(err);
-      } else {
-        resolve();
-      }
-    })
-  });
-};
-
-const cleanUpZipFile = () => {
-  return new Promise((resolve, reject) => {
-    fs.unlink(ZIP_FILE_PATH, (err, data) => {
-      if (err) {
-        console.log(err, err.stack);
-        reject(err);
-      } else {
-        resolve();
-      }
-    })
-  });
-};
-
-updateZipFile().then(updateFunctionCode).then(updateAlias)
-  .then(cleanUpConfig).then(cleanUpZipFile);
+updateZipFile().then(updateFunctionCode).then(updateAlias);
